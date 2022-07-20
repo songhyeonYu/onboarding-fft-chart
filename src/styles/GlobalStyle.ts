@@ -1,4 +1,4 @@
-import { createGlobalStyle} from "styled-components";
+import { createGlobalStyle } from "styled-components";
 import reset from "styled-reset";
 
 const GlobalStyle = createGlobalStyle`
@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
   *{
     box-sizing: border-box;
   }
-`
+  button{
+    cursor: pointer;
+  }
+`;
 
-export default GlobalStyle
+export default GlobalStyle;
