@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-import LoginContainer from "../container/LoginContainer";
 import JoinArea from "../component/JoinArea";
+import JoinContainer from "../container/JoinContainer";
 
 function Join() {
   return (
     <StyledJoin>
       <JoinArea>
-        <LoginContainer />
+        <JoinContainer />
       </JoinArea>
     </StyledJoin>
   );

@@ -26,3 +26,8 @@ export const loginState = atom<loginInfo>({
   default: { id: "", pw: "", token: false },
   effects_UNSTABLE: [persistAtom],
 });
+
+export const pageStepState = atom<string>({
+  key: "pageStep",
+  default: "login",
+});
