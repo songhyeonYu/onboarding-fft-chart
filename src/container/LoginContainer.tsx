@@ -23,10 +23,13 @@ function LoginContainer() {
   };
 
   const loginBtnClick = (): void => {
-    if (loginRequest(loginId, loginPw)) {
-      setLoginToken({ id: loginId, pw: loginPw, token: true });
-      navigate("./chart", { replace: true });
+    if (!loginRequest(loginId, loginPw)) {
+      alert("아이디 또는 패스워드를 확인 해주세요!");
+      setLoginPw("");
+      return;
     }
+    setLoginToken({ id: loginId, pw: loginPw, token: true });
+    navigate("./chart", { replace: true });
   };
 
   useEffect(() => {
