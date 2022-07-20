@@ -54,7 +54,10 @@ function LoginContainer() {
         id={"아이디"}
         onChange={loginPwChange}
       />
-      <Login active={false} loginSubmit={loginBtnClick} />
+      <Login
+        active={!(loginId.length > 5 && loginPw.length > 5)}
+        loginSubmit={loginBtnClick}
+      />
     </>
   );
 }
