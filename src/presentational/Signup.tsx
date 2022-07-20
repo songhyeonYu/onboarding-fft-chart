@@ -5,9 +5,10 @@ import { useRecoilState } from "recoil";
 
 type SignupProps = {
   active: boolean;
+  signupSubmit: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
-function Signup({ active }: SignupProps) {
+function Signup({ active, signupSubmit }: SignupProps) {
   const [_, setPageStep] = useRecoilState(pageStepState);
   const loginClick = () => {
     setPageStep("login");
@@ -15,7 +16,7 @@ function Signup({ active }: SignupProps) {
   return (
     <StyledSignup className={"login-footer"}>
       <span onClick={loginClick}>로그인 하러 가기</span>
-      <button type="button" disabled={active}>
+      <button type="button" disabled={active} onClick={signupSubmit}>
         가입하기
       </button>
     </StyledSignup>

@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import JoinInput from "../component/JoinInput";
-import Singup from "../presentational/Signup";
+import Signup from "../presentational/Signup";
+import { signupRequest } from "../service/signup";
+import { pageStepState } from "../atoms/join";
+import { useRecoilState } from "recoil";
 
 function SignupContainer() {
+  const [_, setPageStep] = useRecoilState(pageStepState);
+
   const [signupInput, setSignInput] = useState({
     id: "",
     nickname: "",
@@ -17,6 +22,12 @@ function SignupContainer() {
       ...signupInput,
       [id]: value,
     });
+  };
+
+  const signupOnClick = () => {
+    signupRequest(id, nickname, pw);
+    setPageStep("login");
+    console.log("회원가입");
   };
 
   return (
@@ -49,7 +60,7 @@ function SignupContainer() {
         id={"pwConfirm"}
         onChange={onChange}
       />
-      <Singup active={false} />
+      <Signup active={false} signupSubmit={signupOnClick} />
     </>
   );
 }
