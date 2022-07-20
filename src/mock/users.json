@@ -1,0 +1,14 @@
+[
+  {
+    "index" : 1,
+    "id" : "test1234",
+    "pw" : "test1234",
+    "nickName" : "하이용"
+  },
+  {
+    "index" : 2,
+    "id" : "test1111",
+    "pw" : "test1111",
+    "nickName" : "ㅋㅋㅋ"
+  }
+]

@@ -4,8 +4,13 @@ import { useRecoilState } from "recoil";
 import { loginIdState, loginPwState } from "../atoms/join";
 import JoinInput from "../component/JoinInput";
 import Login from "../presentational/Login";
+import { loginRequest } from "../service/login";
+import { loginState } from "../atoms/join";
 
 function LoginContainer() {
+  const navigate = useNavigate();
+
+  const [loginToken, setLoginToken] = useRecoilState(loginState);
   const [loginId, setLoginId] = useRecoilState(loginIdState);
   const [loginPw, setLoginPw] = useRecoilState(loginPwState);
 
@@ -16,6 +21,19 @@ function LoginContainer() {
   const loginPwChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginPw(e.target.value);
   };
+
+  const loginBtnClick = (): void => {
+    if (loginRequest(loginId, loginPw)) {
+      setLoginToken({ id: loginId, pw: loginPw, token: true });
+      navigate("./chart", { replace: true });
+    }
+  };
+
+  useEffect(() => {
+    if (loginToken.token) {
+      navigate("./chart", { replace: true });
+    }
+  }, []);
 
   return (
     <>
@@ -33,7 +51,7 @@ function LoginContainer() {
         id={"아이디"}
         onChange={loginPwChange}
       />
-      <Login active={false} />
+      <Login active={false} loginSubmit={loginBtnClick} />
     </>
   );
 }
