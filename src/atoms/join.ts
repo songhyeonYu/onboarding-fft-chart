@@ -28,6 +28,6 @@ export const loginPwState = atom<string>({
 });
 
 export const pageStepState = atom<string>({
-  key: "pageStep",
+  key: "pageStepState",
   default: "login",
 });

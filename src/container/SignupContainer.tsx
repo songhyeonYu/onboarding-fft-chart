@@ -3,10 +3,10 @@ import JoinInput from "../component/JoinInput";
 import Signup from "../presentational/Signup";
 import { signupRequest } from "../service/signup";
 import { pageStepState } from "../atoms/join";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 function SignupContainer() {
-  const [_, setPageStep] = useRecoilState(pageStepState);
+  const setPageStep = useSetRecoilState(pageStepState);
 
   const [signupInput, setSignInput] = useState({
     id: "",
@@ -27,7 +27,6 @@ function SignupContainer() {
   const signupOnClick = () => {
     signupRequest(id, nickname, pw);
     setPageStep("login");
-    console.log("회원가입");
   };
 
   return (

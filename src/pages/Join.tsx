@@ -1,14 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 import JoinArea from "../component/JoinArea";
-import JoinContainer from "../container/JoinContainer";
+import LoginContainer from "../container/LoginContainer";
+import SignupContainer from "../container/SignupContainer";
+import { useRecoilValue } from "recoil";
+import { pageStepState } from "../atoms/join";
+
+type pageType = {
+  [pageStep: string]: JSX.Element;
+};
 
 function Join() {
+  const pageStep = useRecoilValue(pageStepState);
+
+  const pageStepObject: pageType = {
+    login: <LoginContainer />,
+    signup: <SignupContainer />,
+  };
+
   return (
     <StyledJoin>
-      <JoinArea>
-        <JoinContainer />
-      </JoinArea>
+      <JoinArea>{pageStepObject[pageStep]}</JoinArea>
     </StyledJoin>
   );
 }

@@ -5,10 +5,12 @@ type LoginAreaProps = {
   children: React.ReactNode;
 };
 
-function JoinArea({ children }: LoginAreaProps) {
+function JoinArea(props: LoginAreaProps) {
+  const { children } = props;
+
   return (
     <StyledJoinArea>
-      <div className="login-header">FFT Chart</div>
+      <StyledLoginHeader>FFT Chart</StyledLoginHeader>
       {children}
     </StyledJoinArea>
   );
@@ -21,8 +23,9 @@ const StyledJoinArea = styled.section`
   padding: 3vh;
   background-color: #fff;
   box-shadow: 10px 5px 5px #999;
-  .login-header {
-    margin-bottom: 20px;
-    font-size: 1.3rem;
-  }
+`;
+
+const StyledLoginHeader = styled.div`
+  margin-bottom: 20px;
+  font-size: 1.3rem;
 `;
