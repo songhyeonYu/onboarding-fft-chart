@@ -11,6 +11,12 @@ type loginInfo = {
   token: boolean;
 };
 
+export const loginState = atom<loginInfo>({
+  key: "loginState",
+  default: { id: "", pw: "", token: false },
+  effects_UNSTABLE: [persistAtom],
+});
+
 export const loginIdState = atom<string>({
   key: "loginIdState",
   default: "",
@@ -19,12 +25,6 @@ export const loginIdState = atom<string>({
 export const loginPwState = atom<string>({
   key: "loginPwState",
   default: "",
-});
-
-export const loginState = atom<loginInfo>({
-  key: "loginState",
-  default: { id: "", pw: "", token: false },
-  effects_UNSTABLE: [persistAtom],
 });
 
 export const pageStepState = atom<string>({
