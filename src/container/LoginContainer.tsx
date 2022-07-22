@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { loginIdState, loginPwState } from "../atoms/join";
-import JoinInput from "../component/JoinInput";
-import Login from "../presentational/Login";
+import JoinInput from "../common/JoinInput";
+import Login from "../presentational/login/Login";
 import { loginRequest } from "../service/login";
 import { loginState } from "../atoms/join";
 

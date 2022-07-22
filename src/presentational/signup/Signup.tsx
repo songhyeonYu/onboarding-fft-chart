@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { pageStepState } from "../atoms/join";
+import { pageStepState } from "../../atoms/join";
 import { useSetRecoilState } from "recoil";
 
 type SignupProps = {

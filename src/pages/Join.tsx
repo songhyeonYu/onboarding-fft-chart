@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import JoinArea from "../component/JoinArea";
+import JoinArea from "../common/JoinArea";
 import LoginContainer from "../container/LoginContainer";
 import SignupContainer from "../container/SignupContainer";
 import { useRecoilValue } from "recoil";
