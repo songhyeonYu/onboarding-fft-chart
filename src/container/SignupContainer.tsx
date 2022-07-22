@@ -42,6 +42,23 @@ function SignupContainer() {
   };
 
   const signupOnClick = () => {
+    if (id.length < 6) {
+      alert("아이디를 6글자 이상 입력해 주세요!");
+      return;
+    } else if (nickname.length < 2) {
+      alert("닉네임을 2글자 이상 입력해 주세요!");
+      return;
+    } else if (pw.length < 6) {
+      alert("비밀번호를 6글자 이상 입력해 주세요!");
+      return;
+    } else if (pwConfirm.length < 6) {
+      alert("비밀번호 확인을 6글자 이상 입력해 주세요!");
+      return;
+    } else if (pw !== pwConfirm) {
+      alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
     if (idCheck === "empty") {
       alert("중복 체크 버튼을 눌러주세요!");
       return;
@@ -64,6 +81,7 @@ function SignupContainer() {
         label={"아이디"}
         value={id}
         id={"id"}
+        placeholder={"아이디를 6글자 이상 입력해주세요!"}
         onChange={onChange}
       />
       <DuplicationCheck show={idCheck} checkEvent={checkOnClick} />
@@ -72,6 +90,7 @@ function SignupContainer() {
         label={"닉네임"}
         value={nickname}
         id={"nickname"}
+        placeholder={"닉네임을 2글자 이상 입력해주세요!"}
         onChange={onChange}
       />
       <JoinInput
@@ -79,6 +98,7 @@ function SignupContainer() {
         label={"비밀번호"}
         value={pw}
         id={"pw"}
+        placeholder={"비밀번호를 6글자 이상 입력해주세요!"}
         onChange={onChange}
       />
       <JoinInput
@@ -86,6 +106,7 @@ function SignupContainer() {
         label={"비밀번호 확인"}
         value={pwConfirm}
         id={"pwConfirm"}
+        placeholder={"비밀번호를 6글자 이상 입력해주세요!"}
         onChange={onChange}
       />
       <Signup active={false} signupSubmit={signupOnClick} />

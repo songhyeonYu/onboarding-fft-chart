@@ -7,15 +7,22 @@ type JoinInputProps = {
   value: string;
   id: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  placeholder?: string;
 };
 
 function JoinInput(props: JoinInputProps) {
-  const { type, label, value, id, onChange } = props;
+  const { type, label, value, id, onChange, placeholder } = props;
 
   return (
     <StyledInputArea>
       <label htmlFor={id}>{label}</label>
-      <StyledInput type={type} value={value} id={id} onChange={onChange} />
+      <StyledInput
+        type={type}
+        value={value}
+        id={id}
+        placeholder={placeholder}
+        onChange={onChange}
+      />
     </StyledInputArea>
   );
 }
