@@ -3,15 +3,15 @@ import Header from "../common/Header";
 import Main from "../common/Main";
 import Wrap from "../common/Wrap";
 
-function Chart() {
+function News() {
   return (
     <Wrap>
       <Header />
       <Main>
-        <div>차트입니다</div>
+        <div>뉴스 페이지입니다.</div>
       </Main>
     </Wrap>
   );
 }
 
-export default Chart;
+export default News;
