@@ -1,13 +1,25 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import { BiDownArrow } from "react-icons/bi";
+import { NavLink, useNavigate } from "react-router-dom";
+import { IoMdArrowDropdown } from "react-icons/io";
+import { useRecoilValue, useResetRecoilState } from "recoil";
+import { loginState } from "../atoms/join";
 
 function Header() {
+  const navigate = useNavigate();
+
   const [infoOpen, setInfoOpen] = useState(false);
+
+  const userInfo = useRecoilValue(loginState);
+  const resetLoginState = useResetRecoilState(loginState);
 
   const infoOpenClick = () => {
     setInfoOpen(!infoOpen);
+  };
+
+  const logout = () => {
+    resetLoginState();
+    navigate("/", { replace: true });
   };
 
   return (
@@ -40,12 +52,12 @@ function Header() {
         </StyledNavigationItem>
       </StyledNavigationList>
       <StyledInfo onClick={infoOpenClick}>
-        <StyledNickname>코끼리</StyledNickname>
-        <BiDownArrow />
+        <StyledNickname>{userInfo.nickname}</StyledNickname>
+        <IoMdArrowDropdown />
         {infoOpen && (
           <StyledInfoItems>
             <StyledInfoItem>설정</StyledInfoItem>
-            <StyledInfoItem>로그아웃</StyledInfoItem>
+            <StyledInfoItem onClick={() => logout()}>로그아웃</StyledInfoItem>
           </StyledInfoItems>
         )}
       </StyledInfo>
@@ -80,8 +92,8 @@ const StyledLogo = styled.div`
 const StyledNavigationList = styled.ul`
   width: 100%;
   display: flex;
-  margin: 0 5rem;
-  gap: 5rem;
+  margin-left: 4rem;
+  gap: 4rem;
   align-items: center;
 `;
 const StyledNavigationItem = styled.li`
@@ -99,6 +111,7 @@ const StyledNavigationItem = styled.li`
 `;
 
 const StyledInfo = styled.div`
+  min-width: 100px;
   flex-shrink: 0;
   position: relative;
   font-size: 1.3rem;

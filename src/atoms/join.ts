@@ -6,14 +6,14 @@ const { persistAtom } = recoilPersist({
 });
 
 type loginInfo = {
-  id: string;
-  pw: string;
+  id: string | undefined;
+  nickname: string | undefined;
   token: boolean;
 };
 
 export const loginState = atom<loginInfo>({
   key: "loginState",
-  default: { id: "", pw: "", token: false },
+  default: { id: "", nickname: "", token: false },
   effects_UNSTABLE: [persistAtom],
 });
 

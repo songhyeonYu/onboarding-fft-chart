@@ -28,7 +28,11 @@ function LoginContainer() {
       setLoginPw("");
       return;
     }
-    setLoginToken({ id: loginId, pw: loginPw, token: true });
+    setLoginToken({
+      id: loginRequest(loginId, loginPw)?.id,
+      nickname: loginRequest(loginId, loginPw)?.nickName,
+      token: true,
+    });
     navigate("./chart", { replace: true });
   };
 
@@ -36,6 +40,11 @@ function LoginContainer() {
     if (loginToken.token) {
       navigate("./chart", { replace: true });
     }
+  }, []);
+
+  useEffect(() => {
+    setLoginId("");
+    setLoginPw("");
   }, []);
 
   return (
