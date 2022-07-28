@@ -40,12 +40,14 @@ function LoginContainer() {
     if (loginToken.token) {
       navigate("./chart", { replace: true });
     }
+    return () => {
+      setLoginId("");
+      setLoginPw("");
+    };
+    // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {
-    setLoginId("");
-    setLoginPw("");
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>
