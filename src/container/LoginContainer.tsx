@@ -47,8 +47,6 @@ function LoginContainer() {
     // eslint-disable-next-line
   }, []);
 
-  useEffect(() => {}, []);
-
   return (
     <>
       <JoinInput
