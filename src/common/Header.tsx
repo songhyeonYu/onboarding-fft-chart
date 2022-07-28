@@ -115,9 +115,9 @@ const StyledInfo = styled.div`
   flex-shrink: 0;
   position: relative;
   font-size: 1.3rem;
-  padding: 0 1rem 0 0;
   cursor: pointer;
   display: flex;
+  justify-content: center;
 `;
 
 const StyledNickname = styled.span`

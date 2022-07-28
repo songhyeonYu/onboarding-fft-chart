@@ -36,13 +36,6 @@
         "endPoint": 750,
         "bandAlarmThreshold": 0.2,
         "bandTripThreshold": 0.30000000000000004
-      },
-      {
-        "bandName": "band_6",
-        "startPoint": 750,
-        "endPoint": 1500,
-        "bandAlarmThreshold": 0.15,
-        "bandTripThreshold": 0.22499999999999998
       }
     ],
     "fftChartData": [

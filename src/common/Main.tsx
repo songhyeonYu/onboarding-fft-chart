@@ -3,16 +3,20 @@ import styled from "styled-components";
 
 type MainProps = {
   children: React.ReactNode;
+  className?: string;
 };
 
 function Main(props: MainProps) {
-  const { children } = props;
+  const { children, className } = props;
 
-  return <StyledMain>{children}</StyledMain>;
+  return <StyledMain className={className}>{children}</StyledMain>;
 }
 
 export default Main;
 
 const StyledMain = styled.main`
   padding: 30px 4rem;
+  &.chart {
+    padding: 30px 10%;
+  }
 `;
