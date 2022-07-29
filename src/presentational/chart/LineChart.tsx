@@ -57,7 +57,6 @@ const LineChart = (props: size) => {
     grid: {
       width: "99%",
       right: "1%",
-      height: "200px",
       containLabel: true,
       show: true,
     },

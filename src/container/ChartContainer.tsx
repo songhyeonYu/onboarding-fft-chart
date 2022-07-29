@@ -1,34 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
 import LineChart from "../presentational/chart/LineChart";
 import SensorList from "../presentational/chart/SensorList";
 import ChartData from "../mock/testexample.json";
 import AeqTimeList from "../presentational/chart/AeqTimeList";
-import useDebounce from "../hooks/useDebounce";
-import useResize from "../hooks/useResize";
+import useElementObserver from "../hooks/useElementObserver";
 
 function ChartContainer() {
-  const [chartWidth, setChartWidth] = useState(0);
   const chartRef = useRef<HTMLDivElement>(null);
-  const [width, ref] = useResize();
-  const debouncedValue = useDebounce(width, 1000);
-
-  const useResizeEvent = () => {
-    ref(chartRef.current);
-  };
-
-  useEffect(() => {
-    setChartWidth(debouncedValue);
-  }, [debouncedValue]);
-
-  useEffect(() => {
-    if (chartRef.current) setChartWidth(chartRef.current.clientWidth);
-    window.addEventListener("resize", useResizeEvent);
-    return () => {
-      window.removeEventListener("resize", useResizeEvent);
-    };
-    // eslint-disable-next-line
-  }, []);
+  const observerElWidth = useElementObserver(chartRef);
 
   return (
     <StyledChartWrap>
@@ -45,7 +25,7 @@ function ChartContainer() {
           <AeqTimeList date={"2021-03-29 04:27:07"} />
         </StyledChartAeqArea>
         <StyledChartContentArea ref={chartRef}>
-          <LineChart width={chartWidth} />
+          <LineChart width={observerElWidth} />
         </StyledChartContentArea>
       </StyledChartMainArea>
     </StyledChartWrap>
