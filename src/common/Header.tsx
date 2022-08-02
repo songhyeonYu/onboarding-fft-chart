@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { loginState } from "../atoms/join";
+import { autoLoginState, loginState } from "../atoms/join";
 
 function Header() {
   const navigate = useNavigate();
@@ -11,7 +11,10 @@ function Header() {
   const [infoOpen, setInfoOpen] = useState(false);
 
   const userInfo = useRecoilValue(loginState);
+  const autoUserInfo = useRecoilValue(autoLoginState);
+
   const resetLoginState = useResetRecoilState(loginState);
+  const resetAutoLoginState = useResetRecoilState(autoLoginState);
 
   const infoOpenClick = () => {
     setInfoOpen(!infoOpen);
@@ -19,6 +22,7 @@ function Header() {
 
   const logout = () => {
     resetLoginState();
+    resetAutoLoginState();
     navigate("/", { replace: true });
   };
 
@@ -52,7 +56,9 @@ function Header() {
         </StyledNavigationItem>
       </StyledNavigationList>
       <StyledInfo onClick={infoOpenClick}>
-        <StyledNickname>{userInfo.nickname}</StyledNickname>
+        <StyledNickname>
+          {userInfo.nickname ? userInfo.nickname : autoUserInfo.nickname}
+        </StyledNickname>
         <IoMdArrowDropdown />
         {infoOpen && (
           <StyledInfoItems>

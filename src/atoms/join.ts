@@ -1,9 +1,11 @@
 import { atom } from "recoil";
 import { recoilPersist } from "recoil-persist";
 
-const { persistAtom } = recoilPersist({
+const { persistAtom: persistSession } = recoilPersist({
   storage: sessionStorage,
 });
+
+const { persistAtom: persistLocal } = recoilPersist();
 
 type loginInfo = {
   id: string | undefined;
@@ -14,7 +16,13 @@ type loginInfo = {
 export const loginState = atom<loginInfo>({
   key: "loginState",
   default: { id: "", nickname: "", token: false },
-  effects_UNSTABLE: [persistAtom],
+  effects_UNSTABLE: [persistSession],
+});
+
+export const autoLoginState = atom<loginInfo>({
+  key: "autoLoginState",
+  default: { id: "", nickname: "", token: false },
+  effects_UNSTABLE: [persistLocal],
 });
 
 export const loginIdState = atom<string>({

@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { loginIdState, loginPwState } from "../atoms/join";
+import { autoLoginState, loginIdState, loginPwState } from "../atoms/join";
 import JoinInput from "../common/JoinInput";
 import Login from "../presentational/login/Login";
 import { loginRequest } from "../service/login";
@@ -13,6 +13,9 @@ function LoginContainer() {
   const [loginToken, setLoginToken] = useRecoilState(loginState);
   const [loginId, setLoginId] = useRecoilState(loginIdState);
   const [loginPw, setLoginPw] = useRecoilState(loginPwState);
+  const [autoLoginInfo, setAutoLoginInfo] = useRecoilState(autoLoginState);
+
+  const [autoLogin, setAutoLogin] = useState(false);
 
   const loginIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setLoginId(e.target.value);
@@ -28,24 +31,28 @@ function LoginContainer() {
       setLoginPw("");
       return;
     }
-    setLoginToken({
-      id: loginRequest(loginId, loginPw)?.id,
-      nickname: loginRequest(loginId, loginPw)?.nickName,
-      token: true,
-    });
+    if (autoLogin)
+      setAutoLoginInfo({
+        id: loginRequest(loginId, loginPw)?.id,
+        nickname: loginRequest(loginId, loginPw)?.nickName,
+        token: true,
+      });
+    else if (!autoLogin)
+      setLoginToken({
+        id: loginRequest(loginId, loginPw)?.id,
+        nickname: loginRequest(loginId, loginPw)?.nickName,
+        token: true,
+      });
+    setLoginId("");
+    setLoginPw("");
     navigate("./chart", { replace: true });
   };
 
   useEffect(() => {
-    if (loginToken.token) {
+    if (loginToken.token || autoLoginInfo.token) {
       navigate("./chart", { replace: true });
     }
-    return () => {
-      setLoginId("");
-      setLoginPw("");
-    };
-    // eslint-disable-next-line
-  }, []);
+  });
 
   return (
     <>
@@ -68,6 +75,8 @@ function LoginContainer() {
       <Login
         active={!(loginId.length > 5 && loginPw.length > 5)}
         loginSubmit={loginBtnClick}
+        auto={autoLogin}
+        autoLoginCheck={() => setAutoLogin((prev) => !prev)}
       />
     </>
   );
