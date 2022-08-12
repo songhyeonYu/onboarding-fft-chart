@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-type sensorList = {
+type SensorListProps = {
   text: string;
 };
 
-function SensorList(props: sensorList) {
+function SensorList(props: SensorListProps) {
   const { text } = props;
 
   return <StyledSensorItem>{text}</StyledSensorItem>;

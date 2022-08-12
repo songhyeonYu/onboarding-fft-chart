@@ -2,13 +2,17 @@ import React from "react";
 import styled from "styled-components";
 
 type WrapProps = {
-  children: React.ReactNode;
+  children: JSX.Element | JSX.Element[];
 };
 
 function Wrap(props: WrapProps) {
   const { children } = props;
 
-  return <StyledWrap>{children}</StyledWrap>;
+  return (
+    <StyledWrap>
+      <>{children}</>
+    </StyledWrap>
+  );
 }
 
 export default Wrap;

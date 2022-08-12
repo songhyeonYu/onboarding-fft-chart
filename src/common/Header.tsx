@@ -3,21 +3,21 @@ import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
 import { useRecoilValue, useResetRecoilState } from "recoil";
-import { autoLoginState, loginState } from "../atoms/join";
+import { autoLoginAtom, loginAtom } from "../atoms/join";
 
 function Header() {
   const navigate = useNavigate();
 
-  const [infoOpen, setInfoOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
-  const userInfo = useRecoilValue(loginState);
-  const autoUserInfo = useRecoilValue(autoLoginState);
+  const userInfo = useRecoilValue(loginAtom);
+  const autoUserInfo = useRecoilValue(autoLoginAtom);
 
-  const resetLoginState = useResetRecoilState(loginState);
-  const resetAutoLoginState = useResetRecoilState(autoLoginState);
+  const resetLoginState = useResetRecoilState(loginAtom);
+  const resetAutoLoginState = useResetRecoilState(autoLoginAtom);
 
   const infoOpenClick = () => {
-    setInfoOpen(!infoOpen);
+    setIsOpen(!isOpen);
   };
 
   const logout = () => {
@@ -60,7 +60,7 @@ function Header() {
           {userInfo.nickname ? userInfo.nickname : autoUserInfo.nickname}
         </StyledNickname>
         <IoMdArrowDropdown />
-        {infoOpen && (
+        {isOpen && (
           <StyledInfoItems>
             <StyledInfoItem>설정</StyledInfoItem>
             <StyledInfoItem onClick={() => logout()}>로그아웃</StyledInfoItem>

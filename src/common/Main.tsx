@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 type MainProps = {
-  children: React.ReactNode;
+  children: JSX.Element | JSX.Element[];
   className?: string;
 };
 

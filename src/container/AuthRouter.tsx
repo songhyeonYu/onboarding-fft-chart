@@ -1,15 +1,15 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { autoLoginState, loginState } from "../atoms/join";
+import { autoLoginAtom, loginAtom } from "../atoms/join";
 
-type prop = {
-  children: React.ReactNode;
+type AuthRouterProps = {
+  children: JSX.Element | JSX.Element[];
 };
 
-function RequireAuth(props: prop): JSX.Element {
-  const loginAuth = useRecoilValue(loginState);
-  const autoLoginAuth = useRecoilValue(autoLoginState);
+function RequireAuth(props: AuthRouterProps) {
+  const loginAuth = useRecoilValue(loginAtom);
+  const autoLoginAuth = useRecoilValue(autoLoginAtom);
   const { children } = props;
 
   if (!loginAuth.token && !autoLoginAuth.token) {

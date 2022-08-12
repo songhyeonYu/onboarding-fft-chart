@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import ECharts from "echarts-for-react";
 import chartMock from "../../mock/testexample.json";
 
-type size = {
+type SizeProps = {
   width: number;
 };
 
-const LineChart = (props: size) => {
+const LineChart = (props: SizeProps) => {
   const { width } = props;
 
   const [options] = useState({

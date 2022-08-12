@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 
-type aeqTimeProps = {
+type AeqTimeProps = {
   date: string;
 };
 
-function AeqTimeList(props: aeqTimeProps) {
+function AeqTimeList(props: AeqTimeProps) {
   const { date } = props;
   return <StyledAeqTimeItem>{date}</StyledAeqTimeItem>;
 }

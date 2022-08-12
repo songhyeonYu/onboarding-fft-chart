@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { pageStepState } from "../../atoms/join";
+import { pageStepAtom } from "../../atoms/join";
 import { useSetRecoilState } from "recoil";
 
 type SignupProps = {
@@ -11,7 +11,7 @@ type SignupProps = {
 function Signup(props: SignupProps) {
   const { active, signupSubmit } = props;
 
-  const setPageStep = useSetRecoilState(pageStepState);
+  const setPageStep = useSetRecoilState(pageStepAtom);
 
   const loginClick = () => {
     setPageStep("login");

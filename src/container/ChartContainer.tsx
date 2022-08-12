@@ -19,10 +19,9 @@ function ChartContainer() {
       </StyledChartHeader>
       <StyledChartMainArea>
         <StyledChartAeqArea>
-          <AeqTimeList date={"2021-03-29 04:27:07"} />
-          <AeqTimeList date={"2021-03-29 04:27:07"} />
-          <AeqTimeList date={"2021-03-29 04:27:07"} />
-          <AeqTimeList date={"2021-03-29 04:27:07"} />
+          {ChartData.data.acqTime.map((el, index) => (
+            <AeqTimeList key={index} date={el} />
+          ))}
         </StyledChartAeqArea>
         <StyledChartContentArea ref={chartRef}>
           <LineChart width={observerElWidth} />

@@ -8,6 +8,7 @@ type DuplicationCheckProps = {
 
 function DuplicationCheck(props: DuplicationCheckProps) {
   const { show, checkEvent } = props;
+
   const msg = (type: string) => {
     if (type === "empty") {
       return "중복체크를 눌러주세요";

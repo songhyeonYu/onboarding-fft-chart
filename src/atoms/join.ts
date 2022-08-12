@@ -8,34 +8,24 @@ const { persistAtom: persistSession } = recoilPersist({
 const { persistAtom: persistLocal } = recoilPersist();
 
 type loginInfo = {
-  id: string | undefined;
-  nickname: string | undefined;
+  id: string;
+  nickname: string;
   token: boolean;
 };
 
-export const loginState = atom<loginInfo>({
-  key: "loginState",
+export const loginAtom = atom<loginInfo>({
+  key: "@loginAtom",
   default: { id: "", nickname: "", token: false },
   effects_UNSTABLE: [persistSession],
 });
 
-export const autoLoginState = atom<loginInfo>({
-  key: "autoLoginState",
+export const autoLoginAtom = atom<loginInfo>({
+  key: "@autoLoginAtom",
   default: { id: "", nickname: "", token: false },
   effects_UNSTABLE: [persistLocal],
 });
 
-export const loginIdState = atom<string>({
-  key: "loginIdState",
-  default: "",
-});
-
-export const loginPwState = atom<string>({
-  key: "loginPwState",
-  default: "",
-});
-
-export const pageStepState = atom<string>({
-  key: "pageStepState",
+export const pageStepAtom = atom<string>({
+  key: "@pageStepAtom",
   default: "login",
 });

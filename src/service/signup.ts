@@ -1,17 +1,5 @@
 import users from "../mock/users.json";
 
-// const signupTest = {
-//   resType : 'success',
-//   msg : 'ㅇㅇㅇ',
-// }
-//
-// 'idDuplication',
-//   'nicknameDuplication',
-// type checkType = {
-//   msg: string;
-//   pass: boolean;
-// };
-
 export const signupRequest = (
   id: string,
   nickname: string,

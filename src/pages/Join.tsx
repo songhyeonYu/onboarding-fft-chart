@@ -4,14 +4,14 @@ import JoinArea from "../common/JoinArea";
 import LoginContainer from "../container/LoginContainer";
 import SignupContainer from "../container/SignupContainer";
 import { useRecoilValue } from "recoil";
-import { pageStepState } from "../atoms/join";
+import { pageStepAtom } from "../atoms/join";
 
 type pageType = {
   [pageStep: string]: JSX.Element;
 };
 
 function Join() {
-  const pageStep = useRecoilValue(pageStepState);
+  const pageStep = useRecoilValue(pageStepAtom);
 
   const pageStepObject: pageType = {
     login: <LoginContainer />,

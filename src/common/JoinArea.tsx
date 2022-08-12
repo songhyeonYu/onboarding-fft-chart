@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 
 type LoginAreaProps = {
-  children: React.ReactNode;
+  children: JSX.Element | JSX.Element[];
 };
 
 function JoinArea(props: LoginAreaProps) {

@@ -1,50 +1,52 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
-import { autoLoginState, loginIdState, loginPwState } from "../atoms/join";
+import { autoLoginAtom, loginAtom } from "../atoms/join";
 import JoinInput from "../common/JoinInput";
 import Login from "../presentational/login/Login";
 import { loginRequest } from "../service/login";
-import { loginState } from "../atoms/join";
 
 function LoginContainer() {
   const navigate = useNavigate();
+  const [loginInput, setLoginInput] = useState({
+    id: "",
+    pw: "",
+  });
+  const { id, pw } = loginInput;
 
-  const [loginToken, setLoginToken] = useRecoilState(loginState);
-  const [loginId, setLoginId] = useRecoilState(loginIdState);
-  const [loginPw, setLoginPw] = useRecoilState(loginPwState);
-  const [autoLoginInfo, setAutoLoginInfo] = useRecoilState(autoLoginState);
+  const [loginToken, setLoginToken] = useRecoilState(loginAtom);
+  const [autoLoginInfo, setAutoLoginInfo] = useRecoilState(autoLoginAtom);
 
   const [autoLogin, setAutoLogin] = useState(false);
 
-  const loginIdChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginId(e.target.value);
-  };
-
-  const loginPwChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setLoginPw(e.target.value);
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setLoginInput({
+      ...loginInput,
+      [id]: value.trim(),
+    });
   };
 
   const loginBtnClick = (): void => {
-    if (!loginRequest(loginId, loginPw)) {
+    const userInfo = loginRequest(id, pw);
+    if (!userInfo) {
       alert("아이디 또는 패스워드를 확인 해주세요!");
-      setLoginPw("");
+      setLoginInput({ ...loginInput, pw: "" });
       return;
     }
     if (autoLogin)
       setAutoLoginInfo({
-        id: loginRequest(loginId, loginPw)?.id,
-        nickname: loginRequest(loginId, loginPw)?.nickName,
+        id: userInfo.id,
+        nickname: userInfo.nickName,
         token: true,
       });
     else if (!autoLogin)
       setLoginToken({
-        id: loginRequest(loginId, loginPw)?.id,
-        nickname: loginRequest(loginId, loginPw)?.nickName,
+        id: userInfo.id,
+        nickname: userInfo.nickName,
         token: true,
       });
-    setLoginId("");
-    setLoginPw("");
+
     navigate("./chart", { replace: true });
   };
 
@@ -59,21 +61,21 @@ function LoginContainer() {
       <JoinInput
         type={"text"}
         label={"아이디"}
-        value={loginId}
-        id={"아이디"}
+        value={id}
+        id={"id"}
         placeholder={"아이디를 6글자 이상 입력해주세요!"}
-        onChange={loginIdChange}
+        onChange={onChange}
       />
       <JoinInput
         type={"password"}
         label={"패스워드"}
-        value={loginPw}
-        id={"아이디"}
+        value={pw}
+        id={"pw"}
         placeholder={"비밀번호를 6글자 이상 입력해주세요!"}
-        onChange={loginPwChange}
+        onChange={onChange}
       />
       <Login
-        active={!(loginId.length > 5 && loginPw.length > 5)}
+        active={!(id.length > 5 && pw.length > 5)}
         loginSubmit={loginBtnClick}
         auto={autoLogin}
         autoLoginCheck={() => setAutoLogin((prev) => !prev)}
