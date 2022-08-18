@@ -1,10 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { autoLoginAtom, loginAtom } from "../atoms/join";
 import JoinInput from "../common/JoinInput";
 import Login from "../presentational/login/Login";
 import { loginRequest } from "../service/login";
+import { AuthDispatchContext } from "../context/Auth/AuthProvider";
 
 function LoginContainer() {
   const navigate = useNavigate();
@@ -13,6 +14,8 @@ function LoginContainer() {
     pw: "",
   });
   const { id, pw } = loginInput;
+
+  const authDispatch = useContext(AuthDispatchContext);
 
   const [loginToken, setLoginToken] = useRecoilState(loginAtom);
   const [autoLoginInfo, setAutoLoginInfo] = useRecoilState(autoLoginAtom);
@@ -47,6 +50,11 @@ function LoginContainer() {
         token: true,
       });
 
+    authDispatch &&
+      authDispatch({
+        type: "changeAuth",
+        user: { id: userInfo.id, nickName: userInfo.nickName, auth: true },
+      });
     navigate("./chart", { replace: true });
   };
 

@@ -1,44 +1,26 @@
 import React from "react";
-import { RecoilRoot } from "recoil";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Join from "./pages/Join";
-import Chart from "./pages/Chart";
-import News from "./pages/News";
-import Community from "./pages/Community";
-import RequireAuth from "./container/AuthRouter";
+import PrivateRouter from "./route/PrivateRouter";
+import routeList from "./route/list";
 
 function App() {
   return (
     <BrowserRouter>
-      <RecoilRoot>
-        <Routes>
-          <Route path={"/"} element={<Join />} />
+      <Routes>
+        {routeList.map((el) => (
           <Route
-            path={"/chart"}
+            path={el.path}
             element={
-              <RequireAuth>
-                <Chart />
-              </RequireAuth>
+              el.private ? (
+                <PrivateRouter>{el.element}</PrivateRouter>
+              ) : (
+                el.element
+              )
             }
+            key={el.name}
           />
-          <Route
-            path={"/news"}
-            element={
-              <RequireAuth>
-                <News />
-              </RequireAuth>
-            }
-          />
-          <Route
-            path={"/community"}
-            element={
-              <RequireAuth>
-                <Community />
-              </RequireAuth>
-            }
-          />
-        </Routes>
-      </RecoilRoot>
+        ))}
+      </Routes>
     </BrowserRouter>
   );
 }

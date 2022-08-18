@@ -1,17 +1,14 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import styled from "styled-components";
 import { NavLink, useNavigate } from "react-router-dom";
 import { IoMdArrowDropdown } from "react-icons/io";
-import { useRecoilValue, useResetRecoilState } from "recoil";
+import { useResetRecoilState } from "recoil";
 import { autoLoginAtom, loginAtom } from "../atoms/join";
+import { AuthContext } from "../context/Auth/AuthProvider";
 
 function Header() {
   const navigate = useNavigate();
-
   const [isOpen, setIsOpen] = useState(false);
-
-  const userInfo = useRecoilValue(loginAtom);
-  const autoUserInfo = useRecoilValue(autoLoginAtom);
 
   const resetLoginState = useResetRecoilState(loginAtom);
   const resetAutoLoginState = useResetRecoilState(autoLoginAtom);
@@ -25,6 +22,8 @@ function Header() {
     resetAutoLoginState();
     navigate("/", { replace: true });
   };
+
+  const user = useContext(AuthContext);
 
   return (
     <StyledHeader>
@@ -56,9 +55,7 @@ function Header() {
         </StyledNavigationItem>
       </StyledNavigationList>
       <StyledInfo onClick={infoOpenClick}>
-        <StyledNickname>
-          {userInfo.nickname ? userInfo.nickname : autoUserInfo.nickname}
-        </StyledNickname>
+        <StyledNickname>{user?.nickName}</StyledNickname>
         <IoMdArrowDropdown />
         {isOpen && (
           <StyledInfoItems>

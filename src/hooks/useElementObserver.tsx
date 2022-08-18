@@ -9,7 +9,6 @@ const useElementObserver = (elRef: elementType) => {
   const observer = useRef(
     new ResizeObserver((entries) => {
       const { width } = entries[0].contentRect;
-      console.log(entries);
       setSize(width);
     })
   );
