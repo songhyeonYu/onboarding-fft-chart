@@ -10,7 +10,7 @@ export const handlers = [
       const state = users.find((user) => user.id === id && user.pw === pw);
       return state
         ? res(ctx.status(200), ctx.json(state))
-        : res(ctx.status(404));
+        : res(ctx.status(204));
     } catch (error) {
       return res(ctx.status(400));
     }

@@ -8,6 +8,7 @@ import Text from '../../../components/elements/text/Text';
 import { useRecoilCallback, useSetRecoilState } from 'recoil';
 import { loginQuery, pageStepAtom } from '../../../atoms/join';
 import { setStorage } from '../../../util/storage/storage';
+import { useErrorHandler } from 'react-error-boundary';
 
 function SignIn() {
   const [input, setInput] = useState({
@@ -16,8 +17,8 @@ function SignIn() {
   });
   const { id, pw } = input;
   const [autoLogin, setAutoLogin] = useState(false);
-  const [error, setError] = useState(false);
   const setPageStep = useSetRecoilState(pageStepAtom);
+  const errorHandle = useErrorHandler();
 
   const login = useRecoilCallback(
     ({ snapshot }) =>
@@ -54,19 +55,15 @@ function SignIn() {
             window.location.replace('/chart');
             return;
           case 404:
-            setError(true);
+            errorHandle(true);
             return;
           default:
-            setError(true);
+            errorHandle(true);
             return;
         }
       },
     [input]
   );
-
-  if (error) {
-    throw 'error';
-  }
 
   return (
     <>

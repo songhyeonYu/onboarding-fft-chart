@@ -12,6 +12,7 @@ import {
   loginValidationMsg,
 } from '../../../util/validation/validation';
 import { fetchIdDuplication, fetchSignup } from '../../../service/login/login';
+import { useErrorHandler } from 'react-error-boundary';
 
 export const DuplicationCheck = (props: DuplicationCheckProps) => {
   const { msgType, onClick } = props;
@@ -67,7 +68,7 @@ function SignUp() {
   });
   const [idCheck, setIdCheck] = useState<msgType>('empty');
   const { id, nickname, pw, pwConfirm } = input;
-
+  const errorHandler = useErrorHandler();
   const checkOnClick = async () => {
     if (idValidation(id)) {
       alert(loginValidationMsg['id']);
@@ -86,7 +87,7 @@ function SignUp() {
           break;
       }
     } catch (e) {
-      throw 'error';
+      errorHandler(true);
     }
   };
 
@@ -115,7 +116,7 @@ function SignUp() {
           break;
       }
     } catch (e) {
-      throw 'error';
+      errorHandler(true);
     }
   };
 
