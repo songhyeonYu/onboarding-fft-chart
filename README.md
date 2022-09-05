@@ -1,1 +1,1 @@
-## FFT Chart Application
+## FFT ChartView Application

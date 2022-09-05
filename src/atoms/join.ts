@@ -1,11 +1,6 @@
-import { atom } from "recoil";
-import { recoilPersist } from "recoil-persist";
-
-const { persistAtom: persistSession } = recoilPersist({
-  storage: sessionStorage,
-});
-
-const { persistAtom: persistLocal } = recoilPersist();
+import { atom, selector, selectorFamily } from 'recoil';
+import { fetchLogin } from '../service/login/login';
+import { getStorage } from '../util/storage/storage';
 
 type loginInfo = {
   id: string;
@@ -13,19 +8,46 @@ type loginInfo = {
   token: boolean;
 };
 
-export const loginAtom = atom<loginInfo>({
-  key: "@loginAtom",
-  default: { id: "", nickname: "", token: false },
-  effects_UNSTABLE: [persistSession],
-});
+export const userAtom = atom<loginInfo>({
+  key: '@userAtom',
+  default: selector({
+    key: '@userAtom/default',
+    get: () => {
+      const userInfo =
+        getStorage('user', 'local') || getStorage('user', 'session');
 
-export const autoLoginAtom = atom<loginInfo>({
-  key: "@autoLoginAtom",
-  default: { id: "", nickname: "", token: false },
-  effects_UNSTABLE: [persistLocal],
+      if (userInfo) {
+        return JSON.parse(userInfo);
+      }
+
+      return { id: '', nickname: '', token: false };
+    },
+  }),
 });
 
 export const pageStepAtom = atom<string>({
-  key: "@pageStepAtom",
-  default: "login",
+  key: '@pageStepAtom',
+  default: 'signIn',
+});
+
+export const loginQuery = selectorFamily({
+  key: '@loginQuery',
+  get: (user: { id: string; pw: string }) => async () => {
+    try {
+      const { id, pw } = user;
+      const response = await fetchLogin(id, pw);
+      const { status } = response;
+      switch (status) {
+        case 200:
+          return response;
+        case 204:
+          return response;
+        default:
+          return response;
+      }
+    } catch (e: any) {
+      const { response } = e;
+      return response;
+    }
+  },
 });

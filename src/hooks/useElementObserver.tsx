@@ -17,6 +17,7 @@ const useElementObserver = (elRef: elementType) => {
     if (elRef.current) observer.current.observe(elRef.current);
 
     return () => {
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       if (elRef.current) observer.current.unobserve(elRef.current);
     };
   }, [elRef, observer]);
